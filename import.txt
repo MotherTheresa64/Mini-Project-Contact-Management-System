@@ -1,0 +1,14 @@
+{
+  "john@example.com": {
+    "Name": "John Doe",
+    "Phone": "123-456-7890",
+    "Email": "john@example.com",
+    "Additional": "Friend"
+  },
+  "jane@example.com": {
+    "Name": "Jane Smith",
+    "Phone": "987-654-3210",
+    "Email": "jane@example.com",
+    "Additional": "Colleague"
+  }
+}
