@@ -79,10 +79,18 @@ def export_contacts():
     if not contacts:
         print("No contacts to export.")
         return
-    filename = input("Enter filename to export contacts (e.g., contacts.json): ")
-    with open(filename, 'w') as f:
-        json.dump(contacts, f, indent=4)
-    print(f"Contacts exported successfully to {filename}")
+    filename = input("Enter filename to export contacts (e.g., contacts.txt): ")
+    try:
+        with open(filename, 'w') as f:
+            for unique_id, contact_info in contacts.items():
+                f.write(f"Identifier: {unique_id}\n")
+                f.write(f"Name: {contact_info['Name']}\n")
+                f.write(f"Phone: {contact_info['Phone']}\n")
+                f.write(f"Email: {contact_info['Email']}\n")
+                f.write(f"Additional Info: {contact_info['Additional']}\n\n")
+        print(f"Contacts exported successfully to {filename}")
+    except IOError:
+        print(f"Error exporting contacts to {filename}.")
 # Function to import contacts from a specific txt file
 def import_contacts():
     filename = input("Enter filename to import contacts from (e.g., contacts.json): ")
