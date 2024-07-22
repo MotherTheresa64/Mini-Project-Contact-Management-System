@@ -1,9 +1,10 @@
 import re
 import json
 contacts = {}
+# Function to add a new contact unless it already exists
 def add_contact():
     print("\nAdding a new contact:")
-    unique_id = input("Enter unique identifier (e.g., email or phone number): ")
+    unique_id = input("Enter unique identifier (e.g., email or phone number, can be anything): ")
     if unique_id in contacts:
         print("Contact with this identifier already exists!")
         return
@@ -18,6 +19,7 @@ def add_contact():
         'Additional': additional_info
     }
     print("Contact added successfully!")
+# Function to edit any contacts via their unique identifier on file unless they don't exist
 def edit_contact():
     print("\nEditing an existing contact:")
     unique_id = input("Enter unique identifier of the contact to edit: ")
@@ -39,6 +41,7 @@ def edit_contact():
     if additional_info:
         contacts[unique_id]['Additional'] = additional_info
     print("Contact updated successfully!")
+# Function to delete any contact on file via their unique identifier
 def delete_contact():
     print("\nDeleting a contact:")
     unique_id = input("Enter unique identifier of the contact to delete: ")
@@ -47,6 +50,7 @@ def delete_contact():
         return
     del contacts[unique_id]
     print("Contact deleted successfully!")
+# Function to search for a specific contact via the unique identifier
 def search_contact():
     print("\nSearching for a contact:")
     unique_id = input("Enter unique identifier of the contact to search: ")
@@ -54,6 +58,7 @@ def search_contact():
         print_contact(unique_id)
     else:
         print("Contact not found!")
+# Function to display all contacts 
 def display_contacts():
     print("\nAll contacts:")
     if not contacts:
@@ -61,6 +66,7 @@ def display_contacts():
     else:
         for unique_id in contacts:
             print_contact(unique_id)
+# Function that prints the contact via their unique ID and provides a specific format
 def print_contact(unique_id):
     print(f"Identifier: {unique_id}")
     print(f"Name: {contacts[unique_id]['Name']}")
@@ -68,6 +74,7 @@ def print_contact(unique_id):
     print(f"Email: {contacts[unique_id]['Email']}")
     print(f"Additional Info: {contacts[unique_id]['Additional']}")
     print()
+# Function to export our contacts to a specific txt file (couldn't get it to work :/)
 def export_contacts():
     if not contacts:
         print("No contacts to export.")
@@ -76,6 +83,7 @@ def export_contacts():
     with open(filename, 'w') as f:
         json.dump(contacts, f, indent=4)
     print(f"Contacts exported successfully to {filename}")
+# Function to import contacts from a specific txt file
 def import_contacts():
     filename = input("Enter filename to import contacts from (e.g., contacts.json): ")
     try:
@@ -87,14 +95,15 @@ def import_contacts():
         print(f"File {filename} not found!")
     except json.JSONDecodeError:
         print(f"Invalid JSON format in {filename}. Unable to import.")
+# Simple email validation with regex
 def validate_email(email):
-    # Simple email validation with regex
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return re.match(pattern, email)
+# Simple phone number validation with regex (digits, optional hyphens)
 def validate_phone_number(phone_number):
-    # Simple phone number validation with regex (digits, optional hyphens)
     pattern = r'^\d{3}-?\d{3}-?\d{4}$'
     return re.match(pattern, phone_number)
+# Calls the function as a whole and gives us choices to choose from every time and runs the chosen function accordingly
 def main():
     print("Welcome to the Contact Management System!")
     while True:
